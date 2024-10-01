@@ -1,3 +1,5 @@
+using System;
+
 namespace ReservaPassagem.Domain.ValueObjects;
 
 public class Origem

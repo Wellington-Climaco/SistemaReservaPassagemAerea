@@ -6,6 +6,10 @@ namespace ReservaPassagem.Domain;
 
 public class Passageiro : EntityBase
 {
+    protected Passageiro()
+    {
+        
+    }
     public Passageiro(Nome nome, string email, string telefone, List<Reserva>? reservas)
     {
         Nome = nome;

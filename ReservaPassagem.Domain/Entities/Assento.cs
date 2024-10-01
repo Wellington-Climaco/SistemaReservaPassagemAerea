@@ -5,6 +5,10 @@ namespace ReservaPassagem.Domain.Entities;
 
 public class Assento : EntityBase
 {
+    protected Assento()
+    {
+        
+    }
     public Assento(string numero, decimal preco, Classe classe,Voo voo, Reserva? reserva)
     {
         Numero = numero;
@@ -18,7 +22,8 @@ public class Assento : EntityBase
     public decimal Preco { get; private set; }
     public Classe Classe { get; private set; }
     public bool Disponivel { get; private set; } = true;
-    public Voo Voo { get; private set; } 
+    public Voo Voo { get; private set; }
+    public Guid VooId { get; set; }
     public Reserva? Reserva { get; set; }
 
     

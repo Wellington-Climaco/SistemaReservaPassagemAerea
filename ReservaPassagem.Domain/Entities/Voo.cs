@@ -5,8 +5,12 @@ namespace ReservaPassagem.Domain.Entities;
 
 public class Voo : EntityBase
 {
+    protected Voo()
+    {
+        
+    }
     public Voo(string cidadeOrigem,string paisOrigem,string cidadeDestino,string paisDestino,
-        string numeroVoo, DateTime partida, DateTime chegada, string companhiaAerea, List<Assento> assentos)
+        string numeroVoo, DateTime partida, DateTime chegada, string companhiaAerea, List<Assento> assentos,List<Reserva> reservas)
     {
         NumeroVoo = numeroVoo;
         Partida = partida;
@@ -15,6 +19,7 @@ public class Voo : EntityBase
         Assentos = assentos;
         Origem = new Origem(cidadeOrigem,paisOrigem);
         Destino = new Destino(cidadeDestino,paisDestino);
+        Reservas = reservas;
     }
     
     public string NumeroVoo { get; private set; }
@@ -24,6 +29,7 @@ public class Voo : EntityBase
     public DateTime Chegada { get; private set; }
     public string CompanhiaAerea { get; private set; }
     public List<Assento> Assentos { get; private set; }
+    public List<Reserva> Reservas { get; private set; }
     
     
     
