@@ -27,10 +27,14 @@ public class Voo : EntityBase
     public Destino Destino { get; private set; }
     public DateTime Partida { get; private set; }
     public DateTime Chegada { get; private set; }
+    public bool Ativo { get; private set; } = false;
     public string CompanhiaAerea { get; private set; }
     public List<Assento> Assentos { get; private set; }
     public List<Reserva> Reservas { get; private set; }
-    
-    
-    
+
+
+    public void AtivarVoo()
+    {
+        Ativo = true;
+    }
 }

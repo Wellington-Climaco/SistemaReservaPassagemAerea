@@ -31,6 +31,7 @@ public class ReservaMap : IEntityTypeConfiguration<Reserva>
 
         builder.HasMany(r => r.Assentos)
             .WithOne(r => r.Reserva)
+            .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();
     }
 }

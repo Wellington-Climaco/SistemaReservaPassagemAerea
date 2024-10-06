@@ -27,14 +27,9 @@ public class AssentoMap : IEntityTypeConfiguration<Assento>
             .IsRequired();
 
         builder.Property(a => a.Disponivel)
-            .HasConversion(
-                a => a ? "true" : "false",
-                a => a == "true"
-            )
             .IsRequired();
-        
+
         builder.HasOne(a => a.Voo)
-            .WithMany(v => v.Assentos)
-            .HasForeignKey(a => a.VooId);
+            .WithMany(v => v.Assentos);
     }
 }

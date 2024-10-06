@@ -25,6 +25,7 @@ public class Assento : EntityBase
     public Voo Voo { get; private set; }
     public Guid VooId { get; set; }
     public Reserva? Reserva { get; set; }
+    public Guid ReservaId { get; set; }
 
     
     void AssentoReservado()
