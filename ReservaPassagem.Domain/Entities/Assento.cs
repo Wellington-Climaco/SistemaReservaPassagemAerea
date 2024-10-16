@@ -9,13 +9,12 @@ public class Assento : EntityBase
     {
         
     }
-    public Assento(string numero, decimal preco, Classe classe,Voo voo, Reserva? reserva)
+    public Assento(string numero, decimal preco, Classe classe,Voo voo)
     {
         Numero = numero;
         Preco = preco;
         Classe = classe;
         Voo = voo;
-        Reserva = reserva;
     }
 
     public string Numero { get; private set; }

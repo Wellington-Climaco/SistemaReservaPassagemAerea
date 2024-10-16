@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using ReservaPassagem.Domain.Entities;
 using ReservaPassagem.Domain.Interface;
 using ReservaPassagem.Infrastructure.Data.Context;
@@ -24,12 +25,19 @@ public class VooRepository : IVooRepository
         throw new NotImplementedException();
     }
 
-    public Task<Voo> ActiveVoo(Guid id)
+    public async Task<Voo> ActiveVoo(Guid id)
     {
-        throw new NotImplementedException();
+        var voo = await _context.Voos.FirstOrDefaultAsync(x => x.Id == id);
+        
+        if (voo != null)
+            voo.AtivarVoo();
+
+        await _context.SaveChangesAsync();
+        
+        return voo;
     }
 
-    public Task<Voo> GetVooById(Guid id)
+    public Task<Voo> GetVooByNumber(Guid id)
     {
         throw new NotImplementedException();
     }

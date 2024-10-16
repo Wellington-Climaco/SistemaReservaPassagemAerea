@@ -31,12 +31,8 @@ public class VooMap : IEntityTypeConfiguration<Voo>
             .Property(v => v.Cidade)
             .IsRequired();
 
-        builder.Property(v => v.Partida)
+        builder.Property(v => v.HorasVoo)
             .IsRequired();
-
-        builder.Property(v => v.Chegada)
-            .IsRequired()
-            .HasMaxLength(50);
         
         builder.Property(v => v.CompanhiaAerea)
             .IsRequired()

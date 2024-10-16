@@ -103,10 +103,6 @@ namespace ReservaPassagem.Infrastructure.Migrations
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("Chegada")
-                        .HasMaxLength(50)
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("CompanhiaAerea")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -115,13 +111,17 @@ namespace ReservaPassagem.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("HorasVoo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("NumeroVoo")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<DateTime>("Partida")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("QuantidadeAssentos")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
