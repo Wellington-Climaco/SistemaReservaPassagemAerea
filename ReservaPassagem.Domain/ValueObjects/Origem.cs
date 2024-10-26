@@ -10,6 +10,9 @@ public class Origem
             throw new ArgumentException("Cidade não pode ser vazio ou nulo.");
         if (string.IsNullOrWhiteSpace(pais))
             throw new ArgumentException("estado não pode ser vazio ou nulo.");
+        
+        Cidade = cidade;
+        Pais = pais;
     }
     
     public string Cidade { get; private set; }

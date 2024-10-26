@@ -7,33 +7,28 @@ public class VooRequestValidator : AbstractValidator<VooRequest>
 {
     public VooRequestValidator()
     {
-        RuleFor(x => x.cidadeOrigem)
+        RuleFor(x => x.CidadeOrigem)
             .NotEmpty().WithMessage("Campo cidadeOrigem não pode ser vazio.")
             .Length(3, 50);
 
-        RuleFor(x => x.paisOrigem)
+        RuleFor(x => x.PaisOrigem)
             .NotEmpty().WithMessage("Campo paisOrigem não pode ser vazio.")
             .MinimumLength(3);
         
-        RuleFor(x => x.cidadeDestino)
+        RuleFor(x => x.CidadeDestino)
             .NotEmpty().WithMessage("Campo cidadeDestino não pode ser vazio.")
             .Length(3, 50);
 
-        RuleFor(x => x.paisDestino)
+        RuleFor(x => x.PaisDestino)
             .NotEmpty().WithMessage("Campo paisDestino não pode ser vazio.")
             .MinimumLength(3);
         
-        RuleFor(x => x.numeroVoo)
-            .NotEmpty().WithMessage("Campo numeroVoo não pode ser vazio.")
-            .MinimumLength(3);
-
-        RuleFor(x => x.horasVoo)
-            .GreaterThan(TimeSpan.FromMinutes(40)).WithMessage("Tempo de voo precisa ser maior que ");
+        RuleFor(x => x.TempoVoo)
+            .GreaterThan(30).WithMessage("Tempo de voo precisa ser maior que 30 minutos");
         
-        RuleFor(x => x.companhiaAerea)
+        RuleFor(x => x.CompanhiaAerea)
             .NotEmpty().WithMessage("Campo companhiaAerea não pode ser vazio.")
             .MinimumLength(3);
-        
         
     }
 }

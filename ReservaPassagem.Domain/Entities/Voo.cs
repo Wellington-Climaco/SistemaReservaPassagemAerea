@@ -5,28 +5,27 @@ namespace ReservaPassagem.Domain.Entities;
 
 public class Voo : EntityBase
 {
-    protected Voo(string horasVoo)
+    protected Voo()
     {
-        HorasVoo = horasVoo;
     }
     public Voo(string cidadeOrigem,string paisOrigem,string cidadeDestino,string paisDestino,
-        string numeroVoo, string companhiaAerea, string horasVoo)
+        string companhiaAerea, string tempoVoo,int quantidadeAssentos)
     {
-        NumeroVoo = numeroVoo;
         CompanhiaAerea = companhiaAerea;
-        HorasVoo = horasVoo;
+        TempoVoo = tempoVoo;
         Origem = new Origem(cidadeOrigem,paisOrigem);
         Destino = new Destino(cidadeDestino,paisDestino);
+        QuantidadeAssentos = quantidadeAssentos;
     }
-    
-    public string NumeroVoo { get; private set; }
+
+    public string NumeroVoo { get; private set; } = Guid.NewGuid().ToString("N").Substring(0,6).ToUpper();
     public Origem Origem { get; private set; }
     public Destino Destino { get; private set; }
-    public string HorasVoo { get; private set; }
+    public string TempoVoo { get; private set; }
     public bool Ativo { get; private set; } = false;
     public string CompanhiaAerea { get; private set; }
     public int QuantidadeAssentos { get; private set; }
-    public List<Assento> Assentos { get; private set; }
+    public List<Assento>? Assentos { get; private set; } = new();
     public List<Reserva>? Reservas { get; private set; } = new();
 
 
@@ -34,7 +33,7 @@ public class Voo : EntityBase
     {
         Ativo = true;
     }
-
+    
     public void AdicionaReserva(Reserva reserva)
     {
         Reservas.Add(reserva);

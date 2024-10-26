@@ -31,7 +31,7 @@ public class VooMap : IEntityTypeConfiguration<Voo>
             .Property(v => v.Cidade)
             .IsRequired();
 
-        builder.Property(v => v.HorasVoo)
+        builder.Property(v => v.TempoVoo)
             .IsRequired();
         
         builder.Property(v => v.CompanhiaAerea)
