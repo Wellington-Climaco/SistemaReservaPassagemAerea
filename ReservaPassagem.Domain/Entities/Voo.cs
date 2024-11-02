@@ -31,7 +31,14 @@ public class Voo : EntityBase
 
     public void AtivarVoo()
     {
-        Ativo = true;
+        if(!Ativo)
+            Ativo = true;
+    }
+    
+    public void DesativarVoo()
+    {
+        if(Ativo)
+            Ativo = false;
     }
     
     public void AdicionaReserva(Reserva reserva)

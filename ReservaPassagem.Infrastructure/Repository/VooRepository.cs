@@ -30,27 +30,10 @@ public class VooRepository : IVooRepository
         
         return entity;
     }
-
-    public Task<Voo> DisableVoo(Guid id)
-    {
-        throw new NotImplementedException();
-    }
     
-    public async Task<Voo> ActiveVoo(Guid id)
-    {
-        var voo = await _context.Voos.FirstOrDefaultAsync(x => x.Id == id);
-        
-        if (voo != null)
-            voo.AtivarVoo();
-
-        await _context.SaveChangesAsync();
-        
-        return voo;
-    }
-
     public async Task<Voo?> GetVooByNumber(string number)
     {
-        var voo =  _context.Voos.AsNoTracking().FirstOrDefault(x=>x.NumeroVoo == number);
+        var voo =  await _context.Voos.FirstOrDefaultAsync(x=>x.NumeroVoo == number );
 
         return voo;
     }
@@ -60,13 +43,15 @@ public class VooRepository : IVooRepository
         throw new NotImplementedException();
     }
 
-    public Task<Voo> GetVooByCityOrigin(string origin)
+    public async Task<List<Voo>> GetVooByCityOrigin(string origin)
     {
-        throw new NotImplementedException();
+        var voo = await _context.Voos.AsNoTracking().Where(x=>x.Origem.Cidade == origin).ToListAsync();
+        return voo;
     }
 
-    public Task<Voo> GetVooByCityDestination(string destination)
+    public async Task<List<Voo>> GetVooByCityDestination(string destination)
     {
-        throw new NotImplementedException();
+        var voo = await _context.Voos.AsNoTracking().Where(x=>x.Destino.Cidade == destination).ToListAsync();
+        return voo;
     }
 }

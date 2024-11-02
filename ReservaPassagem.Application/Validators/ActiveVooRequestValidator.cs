@@ -3,7 +3,7 @@ using ReservaPassagem.Application.Request;
 
 namespace ReservaPassagem.Application.Validators;
 
-public class ActiveVooRequestValidator : AbstractValidator<ActiveVooRequest>
+public class ActiveVooRequestValidator : AbstractValidator<ChangeStatusVooRequest>
 {
     public ActiveVooRequestValidator()
     {
