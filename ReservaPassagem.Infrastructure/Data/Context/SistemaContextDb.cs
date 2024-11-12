@@ -16,6 +16,7 @@ public class SistemaContextDb : DbContext
     public DbSet<Reserva> Reservas { get; set; }
     public DbSet<Passageiro> Passageiros { get; set; }
     public DbSet<Assento> Assentos { get; set; }
+    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

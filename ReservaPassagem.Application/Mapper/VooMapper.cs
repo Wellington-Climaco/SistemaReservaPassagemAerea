@@ -8,7 +8,7 @@ public static class VooMapper
 {
     public static Voo MapToEntity(this VooRequest vooRequest)
     {
-        TimeSpan horasVoo = TimeSpan.FromMinutes(vooRequest.TempoVoo);
+        TimeSpan horasVoo = TimeSpan.FromMinutes(vooRequest.MinutosVoo);
         var entity = new Voo(vooRequest.CidadeOrigem, vooRequest.PaisOrigem, vooRequest.CidadeDestino,
             vooRequest.PaisDestino,vooRequest.CompanhiaAerea,horasVoo.ToString(@"hh\:mm"),vooRequest.QuantidadeAssentos);
         return entity;

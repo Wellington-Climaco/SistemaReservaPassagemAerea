@@ -1,6 +1,7 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using ReservaPassagem.Application.Errors;
+using ReservaPassagem.Application.Extensions;
 using ReservaPassagem.Application.Interface;
 using ReservaPassagem.Application.Request;
 using ReservaPassagem.Application.Validators;
@@ -32,12 +33,12 @@ public class VooController : ControllerBase
 
         var result = await _vooService.AddVoo(request);
 
-        if (result.IsT0)
+        if (result.IsSucess())
         {
-            return Created("",result.AsT0);
+            return Created("",result.GetSucessResult());
         }
 
-        return BadRequest(result.AsT1);
+        return BadRequest(result.GetErrorResult());
     }
 
     [HttpPut("v1/voo/{vooNumber}/ativar")]
@@ -45,20 +46,20 @@ public class VooController : ControllerBase
     {
         var result = await _vooService.ActiveVoo(vooNumber);
         
-        if (result.IsT0)
+        if (result.IsSucess())
         {
-            return Ok(result.AsT0);
+            return Ok(result.GetSucessResult());
         }
 
-        var errorResult = result.AsT1;
+        var errorResult = result.GetErrorResult();
 
         if (errorResult.TypeError.Equals(ErrorType.NotFound.ToString()))
-            return NotFound(result.AsT1);
+            return NotFound(errorResult);
         
         if(errorResult.TypeError.Equals(ErrorType.Conflict.ToString()))
-            return Conflict(result.AsT1);
+            return Conflict(errorResult);
 
-        return BadRequest(result.AsT1);
+        return BadRequest(errorResult);
     }
 
     [HttpPut("v1/voo/{vooNumber}/desabilitar")]
@@ -66,18 +67,18 @@ public class VooController : ControllerBase
     {
         var result = await _vooService.DisableVoo(vooNumber);
         
-        if(result.IsT0)
-            return Ok(result.AsT0);
+        if(result.IsSucess())
+            return Ok(result.GetSucessResult());
         
-        var errorResult = result.AsT1;
+        var errorResult = result.GetErrorResult();
         
         if (errorResult.TypeError.Equals(ErrorType.NotFound.ToString()))
-            return NotFound(result.AsT1);
+            return NotFound(errorResult);
         
         if(errorResult.TypeError.Equals(ErrorType.Conflict.ToString()))
-            return Conflict(result.AsT1);
+            return Conflict(errorResult);
         
-        return BadRequest(result.AsT1); 
+        return BadRequest(errorResult); 
     }
 
     [HttpGet("v1/voo/cidade/{origem}")]
@@ -85,10 +86,10 @@ public class VooController : ControllerBase
     {
         var result = await _vooService.GetByCityOrigin(origem);
 
-        if (result.IsT0)
-            return Ok(result.AsT0);
+        if (result.IsSucess())
+            return Ok(result.GetSucessResult());
         
-        var errorResult = result.AsT1;
+        var errorResult = result.GetErrorResult();
 
         if (errorResult.TypeError.Equals(ErrorType.NotFound.ToString()))
             return NotFound(errorResult);
@@ -101,10 +102,10 @@ public class VooController : ControllerBase
     {
         var result = await _vooService.GetByCityDestination(destino);
 
-        if (result.IsT0)
-            return Ok(result.AsT0);
+        if (result.IsSucess())
+            return Ok(result.GetSucessResult());
         
-        var errorResult = result.AsT1;
+        var errorResult = result.GetErrorResult();
 
         if (errorResult.TypeError.Equals(ErrorType.NotFound.ToString()))
             return NotFound(errorResult);

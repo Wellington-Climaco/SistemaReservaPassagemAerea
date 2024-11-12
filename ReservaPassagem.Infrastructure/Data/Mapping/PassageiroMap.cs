@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ReservaPassagem.Domain;
 using ReservaPassagem.Infrastructure.Extensions;
 
@@ -26,6 +27,10 @@ public class PassageiroMap : IEntityTypeConfiguration<Passageiro>
             .HasColumnName("Ultimo Nome")
             .HasColumnType("NVARCHAR")
             .HasMaxLength(50);
+
+        builder.OwnsOne(x => x.Senha)
+            .Property(x => x.Hash)
+            .IsRequired();
         
         builder.Property(passageiro => passageiro.Email)
             .IsRequired()

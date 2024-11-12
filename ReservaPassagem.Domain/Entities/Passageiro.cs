@@ -10,16 +10,18 @@ public class Passageiro : EntityBase
     {
         
     }
-    public Passageiro(Nome nome, string email, string telefone, List<Reserva>? reservas)
+    public Passageiro(Nome nome, string email, string telefone,string senha, List<Reserva>? reservas)
     {
         Nome = nome;
         Email = email;
+        Senha = new Senha(senha);
         Telefone = telefone;
         Reservas = reservas;
     }
 
     public Nome Nome { get; private set; }
     public string Email { get; private set; }
+    public Senha Senha { get; private set; }
     public string Telefone { get; private set; }
     public List<Reserva>? Reservas { get; set; }
 }

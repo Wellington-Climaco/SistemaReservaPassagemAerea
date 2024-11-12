@@ -23,7 +23,7 @@ public class VooRequestValidator : AbstractValidator<VooRequest>
             .NotEmpty().WithMessage("Campo paisDestino não pode ser vazio.")
             .MinimumLength(3);
         
-        RuleFor(x => x.TempoVoo)
+        RuleFor(x => x.MinutosVoo)
             .GreaterThan(30).WithMessage("Tempo de voo precisa ser maior que 30 minutos");
         
         RuleFor(x => x.CompanhiaAerea)

@@ -95,6 +95,34 @@ namespace ReservaPassagem.Infrastructure.Migrations
                     b.ToTable("Reservas");
                 });
 
+            modelBuilder.Entity("ReservaPassagem.Domain.Entities.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Telefone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("User", (string)null);
+                });
+
             modelBuilder.Entity("ReservaPassagem.Domain.Entities.Voo", b =>
                 {
                     b.Property<Guid>("Id")
@@ -197,6 +225,29 @@ namespace ReservaPassagem.Infrastructure.Migrations
                     b.Navigation("Voo");
                 });
 
+            modelBuilder.Entity("ReservaPassagem.Domain.Entities.User", b =>
+                {
+                    b.OwnsOne("ReservaPassagem.Domain.ValueObjects.Senha", "Senha", b1 =>
+                        {
+                            b1.Property<Guid>("UserId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Hash")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("UserId");
+
+                            b1.ToTable("User");
+
+                            b1.WithOwner()
+                                .HasForeignKey("UserId");
+                        });
+
+                    b.Navigation("Senha")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ReservaPassagem.Domain.Entities.Voo", b =>
                 {
                     b.OwnsOne("ReservaPassagem.Domain.ValueObjects.Destino", "Destino", b1 =>
@@ -250,6 +301,23 @@ namespace ReservaPassagem.Infrastructure.Migrations
 
             modelBuilder.Entity("ReservaPassagem.Domain.Passageiro", b =>
                 {
+                    b.OwnsOne("ReservaPassagem.Domain.ValueObjects.Senha", "Senha", b1 =>
+                        {
+                            b1.Property<Guid>("PassageiroId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Hash")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("PassageiroId");
+
+                            b1.ToTable("Passageiro");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PassageiroId");
+                        });
+
                     b.OwnsOne("ReservaPassagem.Domain.ValueObjects.Nome", "Nome", b1 =>
                         {
                             b1.Property<Guid>("PassageiroId")
@@ -276,6 +344,9 @@ namespace ReservaPassagem.Infrastructure.Migrations
                         });
 
                     b.Navigation("Nome")
+                        .IsRequired();
+
+                    b.Navigation("Senha")
                         .IsRequired();
                 });
 
