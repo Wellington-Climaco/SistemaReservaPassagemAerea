@@ -20,6 +20,7 @@ public static class ConfigApplication
         services.AddValidatorsFromAssemblyContaining<VooRequestValidator>();
         services.AddScoped<IVooService, VooService>();
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IUserService, UserService>();
         return services;
     }
 

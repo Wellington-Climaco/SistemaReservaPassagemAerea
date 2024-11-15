@@ -1,3 +1,4 @@
+using FluentResults;
 using OneOf;
 using ReservaPassagem.Application.Errors;
 using ReservaPassagem.Application.Interface;
@@ -10,28 +11,45 @@ namespace ReservaPassagem.Application.Services;
 public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
+    private readonly ITokenService _tokenService;
 
-    public UserService(IUserRepository userRepository)
+    public UserService(IUserRepository userRepository, ITokenService tokenService)
     {
         _userRepository = userRepository;
+        _tokenService = tokenService;
     }
 
-    public string Login()
+    public async Task<Result<string>> Login(AuthUserRequest credentials)
     {
-        throw new NotImplementedException();
-    }
-
-    public async Task<OneOf<string,AppError>> RegisterUser(RegisterUserRequest user)
-    {
-        var result = _userRepository.GetUserByEmail(user.Email);
+        var result = await _userRepository.GetUserByEmail(credentials.Email);
         
-        if (result == null)
-            return new AppError("Email já cadastrado no sistema.",ErrorType.AlreadyExists.ToString());
+        if(result == null)
+            return Result.Fail("Email não encontrado.");
+
+        var passwordIsCorrect = result.Senha.VerifyPassword(result.Senha.Hash, credentials.Senha);
+
+        if (!passwordIsCorrect)
+            return Result.Fail("Senha incorreta.");
+
+        var token = _tokenService.GerenteToken(result);
+        
+        return Result.Ok(token);
+    }
+
+    public async Task<Result<string>> RegisterUser(RegisterUserRequest user)
+    {
+        var result = await _userRepository.GetUserByEmail(user.Email);
+
+        if (result != null)
+            return Result.Fail("Email já cadastrado no sistema.");
 
         var entity = user.MapToEntity();
 
         var entityResult = await _userRepository.RegisterUser(entity);
+        
+        if(entityResult == null)
+            return Result.Fail("Não foi possivel criar o registro.");
 
-        return "Usuário criado com sucesso.";
+        return Result.Ok("Usuário criado com sucesso.");
     }
 }

@@ -23,5 +23,6 @@ public static class ConfigInfra
     public static void ConfigServices(this IServiceCollection services)
     {
         services.AddScoped<IVooRepository, VooRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
     }
 }

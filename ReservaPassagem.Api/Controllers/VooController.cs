@@ -13,13 +13,11 @@ public class VooController : ControllerBase
 {
     private readonly IVooService _vooService;
     private readonly IValidator<VooRequest> _validator;
-    private readonly IValidator<ChangeStatusVooRequest> _activeVooValidator;
     
-    public VooController(IVooService vooService, IValidator<VooRequest> validator, IValidator<ChangeStatusVooRequest> activeVooValidator)
+    public VooController(IVooService vooService, IValidator<VooRequest> validator)
     {
         _vooService = vooService;
         _validator = validator;
-        _activeVooValidator = activeVooValidator;
     }
     
     [HttpPost("v1/cadastraVoo")]

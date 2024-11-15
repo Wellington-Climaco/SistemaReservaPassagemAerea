@@ -18,10 +18,6 @@ public class RegisterUserRequestValidator : AbstractValidator<RegisterUserReques
         RuleFor(x => x.Telefone)
             .NotEmpty().WithMessage("Campo telefone não pode ser vazio")
             .Length(11).WithMessage("Campo telefone deve ter 11 caracteres");
-        
-        RuleFor(x => x.Telefone)
-            .NotEmpty().WithMessage("Campo telefone não pode ser vazio")
-            .Length(11).WithMessage("Campo telefone deve ter 11 caracteres");
 
         RuleFor(x => x.Cargo)
             .NotEmpty().WithMessage("Campo cargo não pode ser vazio");
